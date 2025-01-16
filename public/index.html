@@ -183,6 +183,64 @@
                 transform: translate(0, 0);
             }
         }
+
+        <style>
+                /* 其他樣式（如背景、字體設置） */
+    
+                /* 管理員面板美化 */
+            #admin-section {
+                background-color: #fff7ed;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                width: 90%;
+                max-width: 400px;
+                margin: 20px auto;
+             }
+    
+            #admin-section h2 {
+                font-size: 1.5rem;
+                color: #7d6757;
+                margin-bottom: 20px;
+            }
+
+            #votes-display {
+                background-color: #f5f0e6;
+                padding: 15px;
+                border-radius: 5px;
+                box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+                font-family: "Arial", sans-serif;
+                margin-bottom: 15px;
+            }
+
+            #votes-data {
+                font-size: 0.9rem;
+                color: #7d6757;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+            }
+
+            #clear-votes-btn {
+                width: 100%;
+                padding: 10px;
+                background-color: #bca290;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 1rem;
+                cursor: pointer;
+            }
+
+            #clear-votes-btn:hover {
+                background-color: #a28772;
+            }
+
+            #clear-votes-btn:disabled {
+                background-color: #d8cfc4;
+                cursor: not-allowed;
+            }
+        </style>
+
     </style>
 </head>
 <body>
