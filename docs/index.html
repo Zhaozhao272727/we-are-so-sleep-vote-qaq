@@ -240,15 +240,6 @@
         <button onclick="backToVotePage()">返回選擇頁</button>
     </div>
 
-    <div id="admin-section" class="hidden">
-        <h2>管理員面板</h2>
-    <div id="votes-display">
-        <h3>投票數據</h3>
-        <pre id="votes-data">投票數據將顯示在這裡</pre>
-        <button id="clear-votes-btn">清空投票數據</button>
-        </div>
-    </div>
-
 <script>
     const admins = ["朝朝", "昭昭", "淮朝"]; // 管理員列表
     let username = ""; // 保存用戶名
@@ -348,7 +339,7 @@
         document.getElementById("votePage").classList.remove("hidden");
     }
 
-document.getElementById("clearVotesButton").addEventListener("click", () => {
+    document.getElementById("clearVotesButton").addEventListener("click", () => {
     const password = prompt("請輸入管理員密碼以清空數據：");
     const correctPassword = "管理員專用密碼"; // 替換為你的清空數據密碼
 
@@ -375,7 +366,7 @@ document.getElementById("clearVotesButton").addEventListener("click", () => {
         alert("密碼錯誤，操作取消！");
     }
 });
-
-
+<script>
+    
 </body>
 </html>
