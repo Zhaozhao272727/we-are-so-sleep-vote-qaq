@@ -184,63 +184,6 @@
             }
         }
 
-        <style>
-                /* 其他樣式（如背景、字體設置） */
-    
-                /* 管理員面板美化 */
-            #admin-section {
-                background-color: #fff7ed;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-                width: 90%;
-                max-width: 400px;
-                margin: 20px auto;
-             }
-    
-            #admin-section h2 {
-                font-size: 1.5rem;
-                color: #7d6757;
-                margin-bottom: 20px;
-            }
-
-            #votes-display {
-                background-color: #f5f0e6;
-                padding: 15px;
-                border-radius: 5px;
-                box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-                font-family: "Arial", sans-serif;
-                margin-bottom: 15px;
-            }
-
-            #votes-data {
-                font-size: 0.9rem;
-                color: #7d6757;
-                white-space: pre-wrap;
-                word-wrap: break-word;
-            }
-
-            #clear-votes-btn {
-                width: 100%;
-                padding: 10px;
-                background-color: #bca290;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                font-size: 1rem;
-                cursor: pointer;
-            }
-
-            #clear-votes-btn:hover {
-                background-color: #a28772;
-            }
-
-            #clear-votes-btn:disabled {
-                background-color: #d8cfc4;
-                cursor: not-allowed;
-            }
-        </style>
-
     </style>
 </head>
 <body>
@@ -405,32 +348,34 @@
         document.getElementById("votePage").classList.remove("hidden");
     }
 
-    document.getElementById("clear-votes-btn").addEventListener("click", () => {
-        const password = prompt("請輸入管理員密碼以清空數據：");
+document.getElementById("clearVotesButton").addEventListener("click", () => {
+    const password = prompt("請輸入管理員密碼以清空數據：");
+    const correctPassword = "管理員專用密碼"; // 替換為你的清空數據密碼
 
-        if (!password) {
-            alert("未輸入密碼，操作取消！");
-            return;
-        }
-
+    if (password === correctPassword) {
         fetch("https://we-are-so-sleep-backend.onrender.com/api/admin/clear", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ username: "管理員", password }),
         })
-            .then(response => response.json())
-            .then(data => {
+            .then((response) => response.json())
+            .then((data) => {
                 if (data.success) {
-                    alert("投票數據已成功清空！");
+                    alert("數據已成功清空！");
+                    // 清空前端顯示的數據
+                    document.getElementById("results").innerHTML = "<p>目前沒有數據。</p>";
                 } else {
-                    alert("管理員驗證失敗，無法清空數據！");
+                    alert("密碼錯誤，無法清空數據！");
                 }
             })
-            .catch(error => console.error("錯誤:", error));
-    });
-</script>
+            .catch((error) => console.error("清空數據失敗：", error));
+    } else {
+        alert("密碼錯誤，操作取消！");
+    }
+});
+
 
 </body>
 </html>
