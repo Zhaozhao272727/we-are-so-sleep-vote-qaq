@@ -187,31 +187,30 @@
     </style>
 </head>
 <body>
-    
-<!-- 動畫頁 -->
-<div id="animationPage" class="animation-container">
-    <div class="word">
-        <span class="letter">W</span>
-        <span class="letter">E</span>
+    <!-- 動畫頁 -->
+    <div id="animationPage" class="animation-container">
+        <div class="word">
+            <span class="letter">W</span>
+            <span class="letter">E</span>
+        </div>
+        <div class="word">
+            <span class="letter">A</span>
+            <span class="letter">R</span>
+            <span class="letter">E</span>
+        </div>
+        <div class="word">
+            <span class="letter">S</span>
+            <span class="letter">O</span>
+        </div>
+        <div class="word">
+            <span class="letter">S</span>
+            <span class="letter">L</span>
+            <span class="letter">E</span>
+            <span class="letter">E</span>
+            <span class="letter">P</span>
+            <span class="letter">Y</span>
+        </div>
     </div>
-    <div class="word">
-        <span class="letter">A</span>
-        <span class="letter">R</span>
-        <span class="letter">E</span>
-    </div>
-    <div class="word">
-        <span class="letter">S</span>
-        <span class="letter">O</span>
-    </div>
-    <div class="word">
-        <span class="letter">S</span>
-        <span class="letter">L</span>
-        <span class="letter">E</span>
-        <span class="letter">E</span>
-        <span class="letter">P</span>
-        <span class="letter">Y</span>
-    </div>
-</div>
 
     <!-- 名字輸入頁 -->
     <div id="namePage" class="container hidden">
@@ -222,7 +221,7 @@
         </p>
         <h1>請輸入您的名字</h1>
         <input type="text" id="username" placeholder="輸入名字...">
-         <button onclick="validateName()">確認名字</button>
+        <button onclick="validateName()">確認名字</button>
     </div>
     
     <!-- 選擇選項頁 -->
@@ -258,30 +257,14 @@
     let votes = { "應用方面": 0, "純數據分析": 0, "我都可以": 0 }; // 投票數據
     let userVoteDetails = []; // 記錄用戶的投票選擇
 
-        document.addEventListener('DOMContentLoaded', () => {
-        const animationPage = document.getElementById('animationPage');
-        const namePage = document.getElementById('namePage');
-
-        if (animationPage && namePage) {
-            const animationDuration = 2000; // 動畫時長
-            setTimeout(() => {
-                animationPage.classList.add('hidden'); // 隱藏動畫頁
-                namePage.classList.remove('hidden'); // 顯示輸入名稱頁
-            }, animationDuration);
-        } else {
-            console.error("動畫頁面或名字輸入頁面未正確加載！");
-        }
+    document.addEventListener('DOMContentLoaded', () => {
+        const animationDuration = 2000; // 動畫時長
+        setTimeout(() => {
+            document.getElementById('animationPage').classList.add('hidden'); // 隱藏動畫頁
+            document.getElementById('namePage').classList.remove('hidden'); // 顯示輸入名稱頁
+        }, animationDuration);
     });
 
-    function validateName() {
-        const username = document.getElementById("username").value.trim();
-        if (!username) {
-            alert("請輸入名字！");
-        } else {
-            sessionStorage.setItem("username", username);
-            alert(`歡迎，${username}！`);
-        }
-    }
     function validateName() {
         username = document.getElementById("username").value.trim();
 
