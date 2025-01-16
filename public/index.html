@@ -222,20 +222,6 @@
         <input type="text" id="username" placeholder="輸入名字...">
         <button onclick="validateName()">確認名字</button>
     </div>
-
-    <div id="admin-section">
-      <h2>管理員登入</h2>
-         <input type="text" id="admin-username" placeholder="說出你的權限稱號！" />
-          <input type="password" id="admin-password" placeholder="輸入你的權限密碼！" />
-          <button id="admin-login-btn">登入</button>
-      <div id="votes-display" style="display: none;">
-        <h3>投票數據：</h3>
-        <pre id="votes-data"></pre>
-      </div>
-    </div>
-
-
-
     
     <!-- 選擇選項頁 -->
     <div id="votePage" class="container hidden">
@@ -253,6 +239,66 @@
         <button onclick="backToVotePage()">返回選擇頁</button>
     </div>
 
+    <div id="admin-section" class="hidden">
+        <h2>管理員面板</h2>
+    <div id="votes-display">
+        <h3>投票數據</h3>
+        <pre id="votes-data">投票數據將顯示在這裡</pre>
+        <button id="clear-votes-btn">清空投票數據</button>
+        </div>
+    </div>
+
+    <script>
+    const admins = ["朝朝", "昭昭", "淮朝"]; // 定義管理員名稱
+    let username = "";
+
+    function validateName() {
+        username = document.getElementById("username").value.trim();
+
+        if (!username) {
+            alert("請輸入名稱！");
+            return;
+        }
+
+        sessionStorage.setItem("username", username);
+
+        // 判斷是否為管理員
+        if (admins.includes(username)) {
+            document.getElementById("admin-section").classList.remove("hidden"); // 顯示管理員面板
+        }
+
+        document.getElementById("namePage").classList.add("hidden");
+        document.getElementById("votePage").classList.remove("hidden");
+    }
+
+    document.getElementById("clear-votes-btn").addEventListener("click", () => {
+        const password = prompt("請輸入管理員密碼以清空數據：");
+
+        if (!password) {
+            alert("未輸入密碼，操作取消！");
+            return;
+        }
+
+        fetch("https://we-are-so-sleep-backend.onrender.com/api/admin/clear", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+                    alert("投票數據已成功清空！");
+                } else {
+                    alert("管理員驗證失敗，無法清空數據！");
+                }
+            })
+            .catch((error) => console.error("錯誤:", error));
+    });
+</script>
+
+    
     <script>
         let attempts = 0;
         let wrongAttempts = 0;
