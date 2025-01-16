@@ -3,7 +3,7 @@ name: Deploy GitHub Pages
 on:
   push:
     branches:
-      - main  # 監控 main 分支更新
+      - main  # 當 main 分支更新時執行
 
 jobs:
   deploy:
@@ -15,12 +15,8 @@ jobs:
 
     - name: Move files to docs
       run: |
-        mkdir docs
-        cp -r public/* docs/
-        git config user.name "GitHub Actions"
-        git config user.email "actions@github.com"
-        git add docs/
-        git commit -m "Auto-deploy to GitHub Pages"
+        mkdir docs || true  # 如果 docs 資料夾已存在，不報錯
+        cp -r public/* docs/  # 將 public 內容複製到 docs 資料夾
 
     - name: Push changes to GitHub
       uses: ad-m/github-push-action@v0.6.0
