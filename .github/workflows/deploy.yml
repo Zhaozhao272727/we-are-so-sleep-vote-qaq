@@ -1,0 +1,24 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # 監控 main 分支的更新
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Move files to docs
+      run: |
+        mkdir docs
+        cp -r public/* docs/
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add docs/
+        git commit -m "Auto-deploy to GitHub Pages"
+        git push
