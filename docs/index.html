@@ -1,0 +1,329 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Are So Sleepy</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f5f0e6;
+        }
+
+        .animation-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f5f0e6;
+            overflow: hidden;
+        }
+
+        .word {
+            display: flex;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .letter {
+            font-size: 2rem;
+            color: #7d6757;
+            opacity: 0;
+            animation: bounce 0.5s ease forwards;
+        }
+
+            .letter:nth-child(1) {
+                animation-delay: 0s;
+            }
+
+            .letter:nth-child(2) {
+                animation-delay: 0.1s;
+            }
+
+            .letter:nth-child(3) {
+                animation-delay: 0.2s;
+            }
+
+            .letter:nth-child(4) {
+                animation-delay: 0.3s;
+            }
+
+            .letter:nth-child(5) {
+                animation-delay: 0.4s;
+            }
+
+            .letter:nth-child(6) {
+                animation-delay: 0.5s;
+            }
+
+            .letter:nth-child(7) {
+                animation-delay: 0.6s;
+            }
+
+            .letter:nth-child(8) {
+                animation-delay: 0.7s;
+            }
+
+            .letter:nth-child(9) {
+                animation-delay: 0.8s;
+            }
+
+            .letter:nth-child(10) {
+                animation-delay: 0.9s;
+            }
+
+        @keyframes bounce {
+            0% {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translateY(-20px);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .container {
+            text-align: center;
+            background: #fff7ed;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #7d6757;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #7d6757;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        input {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+            border: 1px solid #d0c4b4;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: #bca290;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background: #a28772;
+            }
+
+            button:disabled {
+                background: #d8cfc4;
+                cursor: not-allowed;
+            }
+
+        .hidden {
+            display: none;
+        }
+
+        #goodbyePage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ff4d4d;
+            background: #fff;
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            25% {
+                transform: translate(-10px, 10px);
+            }
+
+            50% {
+                transform: translate(10px, -10px);
+            }
+
+            75% {
+                transform: translate(-10px, -10px);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 動畫頁 -->
+    <div id="animationPage" class="animation-container">
+        <div class="word">
+            <span class="letter">W</span>
+            <span class="letter">E</span>
+        </div>
+        <div class="word">
+            <span class="letter">A</span>
+            <span class="letter">R</span>
+            <span class="letter">E</span>
+        </div>
+        <div class="word">
+            <span class="letter">S</span>
+            <span class="letter">O</span>
+        </div>
+        <div class="word">
+            <span class="letter">S</span>
+            <span class="letter">L</span>
+            <span class="letter">E</span>
+            <span class="letter">E</span>
+            <span class="letter">P</span>
+            <span class="letter">Y</span>
+        </div>
+    </div>
+
+    <!-- 名字輸入頁 -->
+    <div id="namePage" class="container hidden">
+        <p>
+            親愛的組員們大家好ＱＡＱ<br>
+            我是昭昭！為了專題進行順利，耽誤大家幾分鐘的時間，請大家對想進行的方向投票，非常謝謝你的幫助！<br><br>
+            p.s 不可以不輸入名字喔!
+        </p>
+        <h1>請輸入您的名字</h1>
+        <input type="text" id="username" placeholder="輸入名字...">
+        <button onclick="validateName()">確認名字</button>
+    </div>
+
+    <!-- 選擇選項頁 -->
+    <div id="votePage" class="container hidden">
+        <h1>選擇您的道路</h1>
+        <button id="option1" onclick="vote('應用方面')">應用方面</button>
+        <button id="option2" onclick="vote('純數據分析')">純數據分析</button>
+        <button id="option3" onclick="vote('我都可以')">我都可以</button>
+        <button id="viewResultsButton" onclick="adminAccess()">查看投票結果 (輸入暗號)</button>
+    </div>
+
+    <!-- 結果頁 -->
+    <div id="resultsPage" class="container hidden">
+        <h1>投票結果</h1>
+        <div id="results"></div>
+        <button onclick="backToVotePage()">返回選擇頁</button>
+    </div>
+
+    <script>
+        let attempts = 0;
+        let wrongAttempts = 0;
+        let votes = { "應用方面": 0, "純數據分析": 0, "我都可以": 0 };
+        let userVoteDetails = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const animationDuration = 2000;
+            setTimeout(() => {
+                document.getElementById('animationPage').classList.add('hidden');
+                document.getElementById('namePage').classList.remove('hidden');
+            }, animationDuration);
+        });
+
+        function validateName() {
+            const username = document.getElementById('username').value.trim();
+            if (username) {
+                sessionStorage.setItem('username', username);
+                document.getElementById('namePage').classList.add('hidden');
+                document.getElementById('votePage').classList.remove('hidden');
+                return;
+            }
+            attempts++;
+            if (attempts === 1) alert('｡ﾟヽ(ﾟ´Д`)ﾉﾟ｡不可以不留名！');
+            else if (attempts === 2) alert('(((ﾟДﾟ;)))！你壞壞!請重新輸入!');
+            else closePage();
+        }
+
+        function closePage() {
+            alert('再見！(╯°Д°)╯︵ ┻━┻');
+            document.body.innerHTML = '<div id="goodbyePage">再見！(╯°Д°)╯︵ ┻━┻</div>';
+            setTimeout(() => window.location.href = "about:blank", 5000);
+        }
+
+        function vote(choice) {
+            const username = sessionStorage.getItem('username');
+            if (!username) {
+                alert('請先輸入名字！');
+                return;
+            }
+            userVoteDetails.push({ username, choice });
+            votes[choice]++;
+            document.querySelectorAll('#votePage button:not(#viewResultsButton)').forEach(button => button.disabled = true);
+            alert(`${username}，你選擇了「${choice}」，投票已記錄！\nヾ(●゜▽゜●)♡ 謝謝你！辛苦了！請多多指教！`);
+        }
+
+        function adminAccess() {
+            const password = prompt('請輸入密碼：');
+            const correctPassword = 'If you shed tears when you miss the sun, you also miss the stars.';
+            if (wrongAttempts === 0) {
+                alert('QAQ你也想偷看嗎?');
+                wrongAttempts++;
+                return;
+            }
+            if (wrongAttempts === 1) {
+                if (password === correctPassword) {
+                    viewResults();
+                } else {
+                    alert('暗號錯誤！不給你看!');
+                    wrongAttempts++;
+                }
+            } else {
+                alert('┳━┳ノ( OωOノ)');
+                closePage();
+            }
+        }
+
+        function viewResults() {
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '<h2>總票數：</h2>';
+            for (const [choice, count] of Object.entries(votes)) {
+                resultsContainer.innerHTML += `<p>${choice}：${count} 票</p>`;
+            }
+            resultsContainer.innerHTML += '<h2>用戶投票記錄：</h2>';
+            userVoteDetails.forEach(({ username, choice }) => {
+                resultsContainer.innerHTML += `<p>${username} 選擇了：${choice}</p>`;
+            });
+            document.getElementById('votePage').classList.add('hidden');
+            document.getElementById('resultsPage').classList.remove('hidden');
+        }
+
+        function backToVotePage() {
+            document.getElementById('resultsPage').classList.add('hidden');
+            document.getElementById('votePage').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
