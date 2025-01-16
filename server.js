@@ -35,6 +35,20 @@ app.post('/api/vote', (req, res) => {
   }
 });
 
+// 用於驗證用戶輸入的暗號
+app.post('/api/login', (req, res) => {
+  const { username, password } = req.body; // 用戶輸入的名稱和暗號
+  const validPassword = 'your_password'; // 這裡替換為你的暗號
+
+  if (password === validPassword) {
+    const isAdmin = ['朝朝', '昭昭', '淮朝'].includes(username); // 判定是否為管理員
+    res.json({ success: true, isAdmin }); // 回傳結果
+  } else {
+    res.status(401).json({ success: false, message: '暗號錯誤' }); // 回傳錯誤
+  }
+});
+
+
 // 啟動伺服器
 app.listen(PORT, () => {
   console.log(`伺服器正在運行，端口號: ${PORT}`);
