@@ -62,6 +62,32 @@ app.post('/api/admin/votes', (req, res) => {
   }
 });
 
+document.getElementById('admin-login-btn').addEventListener('click', () => {
+  const username = document.getElementById('admin-username').value;
+  const password = document.getElementById('admin-password').value;
+
+  // 發送管理員登入請求
+  fetch('https://we-are-so-sleep-backend.onrender.com/api/admin/votes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        // 驗證成功，顯示投票數據
+        document.getElementById('votes-display').style.display = 'block';
+        document.getElementById('votes-data').textContent = JSON.stringify(data.votes, null, 2);
+      } else {
+        alert('管理員驗證失敗，請檢查用戶名或密碼！');
+      }
+    })
+    .catch((error) => console.error('錯誤:', error));
+});
+
+
 // 啟動伺服器
 app.listen(PORT, () => {
   console.log(`伺服器正在運行，端口號: ${PORT}`);
