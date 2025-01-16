@@ -48,6 +48,19 @@ app.post('/api/login', (req, res) => {
   }
 });
 
+const admins = ["朝朝", "昭昭", "淮朝"]; // 管理員列表
+
+// 管理員專用：獲取所有投票數據
+app.post('/api/admin/votes', (req, res) => {
+  const { username, password } = req.body;
+
+  // 驗證管理員身份
+  if (admins.includes(username) && password === "admin_password") {
+    res.json({ success: true, votes });
+  } else {
+    res.status(403).json({ success: false, message: '管理員驗證失敗！' });
+  }
+});
 
 // 啟動伺服器
 app.listen(PORT, () => {
