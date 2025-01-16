@@ -57,42 +57,65 @@ app.post('/api/vote', (req, res) => {
   res.json({ message: `投票成功！${username} 選擇了 ${choice}`, votes });
 });
 
-// 管理員登入驗證
-app.post('/api/login', (req, res) => {
-  const { username, password } = req.body;
+<script>
+    // 定義管理員列表
+    const admins = ["朝朝", "昭昭", "淮朝"];
+    let username = ""; // 保存用戶名稱
 
-  if (admins.includes(username) && password === adminPassword) {
-    res.json({ success: true, isAdmin: true });
-  } else {
-    res.status(401).json({ success: false, message: '登入失敗：用戶名或密碼錯誤' });
-  }
-});
+    function validateName() {
+        username = document.getElementById("username").value.trim();
 
-// 管理員查看投票數據並清理
-app.post('/api/admin/votes', (req, res) => {
-  const { username, password } = req.body;
+        if (!username) {
+            alert("請輸入名稱！");
+            return;
+        }
 
-  // 驗證管理員身份
-  if (admins.includes(username) && password === adminPassword) {
-    res.json({ success: true, votes, voteRecords });
-  } else {
-    res.status(403).json({ success: false, message: '管理員驗證失敗' });
-  }
-});
+        sessionStorage.setItem("username", username); // 儲存用戶名稱
 
-// 清理所有投票數據 (僅限管理員)
-app.post('/api/admin/clear', (req, res) => {
-  const { username, password } = req.body;
+        // 判斷是否為管理員
+        const isAdmin = admins.includes(username);
 
-  // 驗證管理員身份
-  if (admins.includes(username) && password === adminPassword) {
-    votes = { "應用方面": 0, "純數據分析": 0, "我都可以": 0 };
-    voteRecords = {};
-    res.json({ success: true, message: '所有投票數據已被清理' });
-  } else {
-    res.status(403).json({ success: false, message: '管理員驗證失敗，無法清理數據' });
-  }
-});
+        if (isAdmin) {
+            // 如果是管理員，顯示管理員介面
+            document.getElementById("admin-section").classList.remove("hidden");
+        } else {
+            // 如果不是管理員，確保管理員介面被隱藏
+            document.getElementById("admin-section").classList.add("hidden");
+        }
+
+        // 顯示投票頁面
+        document.getElementById("namePage").classList.add("hidden");
+        document.getElementById("votePage").classList.remove("hidden");
+    }
+
+    // 綁定清空投票數據按鈕事件
+    document.getElementById("clear-votes-btn").addEventListener("click", () => {
+        const password = prompt("請輸入管理員密碼以清空數據：");
+
+        if (!password) {
+            alert("未輸入密碼，操作取消！");
+            return;
+        }
+
+        fetch("https://we-are-so-sleep-backend.onrender.com/api/admin/clear", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+                    alert("投票數據已成功清空！");
+                } else {
+                    alert("管理員驗證失敗，無法清空數據！");
+                }
+            })
+            .catch((error) => console.error("錯誤:", error));
+    });
+</script>
+
 
 // 啟動伺服器
 app.listen(PORT, () => {
