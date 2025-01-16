@@ -3,10 +3,10 @@ name: Deploy GitHub Pages
 on:
   push:
     branches:
-      - main  # 監控 main 分支的更新
+      - main  # 監控 main 分支更新
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,4 +21,9 @@ jobs:
         git config user.email "actions@github.com"
         git add docs/
         git commit -m "Auto-deploy to GitHub Pages"
-        git push
+
+    - name: Push changes to GitHub
+      uses: ad-m/github-push-action@v0.6.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
