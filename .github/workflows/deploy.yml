@@ -3,23 +3,25 @@ name: Deploy GitHub Pages
 on:
   push:
     branches:
-      - main  # 當 main 分支更新時執行
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
+    - name: Checkout repository
       uses: actions/checkout@v2
 
     - name: Move files to docs
       run: |
-        mkdir docs || true  # 如果 docs 資料夾已存在，不報錯
-        cp -r public/* docs/  # 將 public 內容複製到 docs 資料夾
+        mkdir -p docs
+        cp -r public/* docs/
 
-    - name: Push changes to GitHub
-      uses: ad-m/github-push-action@v0.6.0
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: main
+    - name: Commit and Push changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "actions@github.com"
+        git add docs/
+        git commit -m "Auto-deploy to GitHub Pages" || echo "No changes to commit"
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
