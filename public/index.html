@@ -250,42 +250,38 @@
 
     <script>
         const admins = ["朝朝", "昭昭", "淮朝"]; // 定義管理員名稱
-        let username = ""; // 全域變數保存用戶名稱
+        let username = "";
     
         function validateName() {
-            // 獲取輸入的用戶名稱
             username = document.getElementById("username").value.trim();
 
-            if (!username) {
-                alert("請輸入名稱！");
-                return;
-            }
-    
-            // 將用戶名稱儲存在 sessionStorage 中
-            sessionStorage.setItem("username", username);
-    
-            // 判斷是否為管理員
-            if (admins.includes(username)) {
-                document.getElementById("admin-section").classList.remove("hidden"); // 顯示管理員面板
-            } else {
-                document.getElementById("admin-section").classList.add("hidden"); // 確保非管理員隱藏面板
-            }
-    
-            // 顯示投票介面
-            document.getElementById("namePage").classList.add("hidden");
-            document.getElementById("votePage").classList.remove("hidden");
+        if (!username) {
+            alert("請輸入名稱！");
+            return;
         }
-    
-        // 綁定清空投票數據按鈕的事件
-        document.getElementById("clear-votes-btn").addEventListener("click", () => {
-            const password = prompt("請輸入管理員密碼以清空數據：");
-    
-            if (!password) {
-                alert("未輸入密碼，操作取消！");
-                return;
-            }
-    
-            fetch("https://we-are-so-sleep-backend.onrender.com/api/admin/clear", {
+
+        sessionStorage.setItem("username", username);
+
+        // 判斷是否為管理員
+        if (admins.includes(username)) {
+            document.getElementById("admin-section").classList.remove("hidden");
+        } else {
+            document.getElementById("admin-section").classList.add("hidden");
+        }
+
+        document.getElementById("namePage").classList.add("hidden");
+        document.getElementById("votePage").classList.remove("hidden");
+    }
+
+    document.getElementById("clear-votes-btn").addEventListener("click", () => {
+        const password = prompt("請輸入管理員密碼以清空數據：");
+
+        if (!password) {
+            alert("未輸入密碼，操作取消！");
+            return;
+        }
+
+        fetch("https://we-are-so-sleep-backend.onrender.com/api/admin/clear", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -303,6 +299,7 @@
                 .catch((error) => console.error("錯誤:", error));
         });
     </script>
+
     
     
     <script>
