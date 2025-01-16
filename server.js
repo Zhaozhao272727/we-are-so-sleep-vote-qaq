@@ -20,7 +20,7 @@ let voteRecords = {};
 
 // 管理員列表
 const admins = ["朝朝", "昭昭", "淮朝"];
-const adminPassword = "admin_password"; // 替換為你的管理員密碼
+const adminPassword = "998827"; // 替換為你的管理員密碼
 
 // 根路由 (顯示歡迎訊息)
 app.get('/', (req, res) => {
