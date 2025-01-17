@@ -1,16 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>We Are So Sleepy</title> 
-    <!-- 引入外部 CSS -->
+    <title>We Are So Sleepy</title>
+        <!-- 引入外部 CSS -->
     <link rel="stylesheet" href="style.css">
-</head>
     
+</head>
 <body>
-
     <!-- 動畫頁 -->
     <div id="animationPage" class="animation-container">
         <div class="word">
@@ -45,9 +43,9 @@
         </p>
         <h1>請輸入您的名字</h1>
         <input type="text" id="username" placeholder="輸入名字...">
-        <button id="validateNameButton">確認名字</button>
+        <button onclick="validateName()">確認名字</button>
     </div>
-    
+
     <!-- 選擇選項頁 -->
     <div id="votePage" class="container hidden">
         <h1>選擇您的道路</h1>
@@ -61,26 +59,9 @@
     <div id="resultsPage" class="container hidden">
         <h1>投票結果</h1>
         <div id="results"></div>
-        <button id="backToVoteButton">返回選擇頁</button>
-        <button id="clearVotesButton">清空投票數據</button>
-
+        <button onclick="backToVotePage()">返回選擇頁</button>
     </div>
 
-    #goodbyePage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-size: 3rem;
-    font-weight: bold;
-    color: #ff4d4d;
-    background: #fff;
-    animation: shake 0.5s infinite; /* 使用 shake 動畫 */
-}
-
-    
     <script src="script.js"></script> <!-- 引入外部 JS -->
 
-</body>   
-    
-</html>
+<body>
