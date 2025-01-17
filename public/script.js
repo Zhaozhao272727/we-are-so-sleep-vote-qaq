@@ -26,13 +26,6 @@
 
         sessionStorage.setItem("username", username);
 
-        // 判斷是否為管理員
-        if (admins.includes(username)) {
-            document.getElementById("admin-section").classList.remove("hidden"); // 顯示管理員介面
-        } else {
-            document.getElementById("admin-section").classList.add("hidden"); // 確保隱藏管理員介面
-        }
-
         document.getElementById("namePage").classList.add("hidden");
         document.getElementById("votePage").classList.remove("hidden");
     }
@@ -96,15 +89,16 @@
         document.getElementById("votePage").classList.remove("hidden");
     }
 
+    document.getElementById("clearVotesButton").addEventListener("click", () => {
+        const password = prompt("請輸入管理員密碼以清空數據：");
+        const correctPassword = "管理員專用密碼"; // 替換為你的清空數據密碼
+
     if (password === correctPassword) {
         fetch("https://we-are-so-sleep-backend.onrender.com/api/admin/clear", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-        document.getElementById("clearVotesButton").addEventListener("click", () => {
-            const password = prompt("請輸入管理員密碼以清空數據：");
-            const correctPassword = "管理員專用密碼"; // 替換為你的清空數據密碼
             body: JSON.stringify({ username: "管理員", password }),
         })
             .then((response) => response.json())
@@ -122,3 +116,4 @@
         alert("密碼錯誤，操作取消！");
     }
 });
+
